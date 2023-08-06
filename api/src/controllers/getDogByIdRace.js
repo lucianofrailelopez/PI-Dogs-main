@@ -11,7 +11,7 @@ async function getDogByIdRace(req, res) {
     if (data) {
       return res.status(200).json(data);
     } else {
-      const responseDB = await axios(`http://localhost:3001/dogs/${idRace}`);
+      const responseDB = await Dog.findAll();
       const dogFromDB = responseDB.find((dog) => dog.breed_group === idRace);
       
       if (dogFromDB) {

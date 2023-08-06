@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { URL, API_KEY } = process.env;
 const axios = require("axios");
+const { Dog } = require("../db");
 
 const getDogByName = async (req, res) => {
   try {
@@ -11,15 +12,14 @@ const getDogByName = async (req, res) => {
 
     const foundDogs = data.filter(data => data.name === dogName);
 
-    const responseDB = await axios.get(`http://localhost:3001/dogs`);
-    const dataDB = responseDB.data;
+    const responseDB = await Dog.findAll();
 
-    const foundDogsDB = dataDB.filter(data => data.name === dogName);
+    const foundDogsDB = responseDB.filter(dog => dog.dataValues.name === dogName);
 
     const combinedResults = [...foundDogs, ...foundDogsDB];
 
     if (combinedResults.length > 0) {
-      return res.status(200).json(foundDogs);
+      return res.status(200).json(combinedResults);
     } else {
       return res.status(400).send('Not Found');
     }

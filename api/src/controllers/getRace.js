@@ -6,7 +6,7 @@ const getRace = async (req, res) => {
     try {
         const response = await axios.get(`${URL}?api_key=${API_KEY}`);
         const data = response.data;
-        if (data.length >= 1) {
+        if (data) {
             return res.status(200).json(data);
         } else {
             return res.status(400).send('Not Found');
