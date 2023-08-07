@@ -6,27 +6,22 @@ const { Dog } = require("../db");
 const getDogByName = async (req, res) => {
   try {
     const dogName = req.query.name;
+    const dataDB = await Dog.findOne({ where: { title: { [Op.iLike]: `%${dogName}%`} } });
 
-    const response = await axios.get(`${URL}?api_key=${API_KEY}`);
-    const data = response.data;
+    const response = await axios.get(`${URL}/search?q=${dogName}`);
+    const dataApi = response.data
 
-    const foundDogs = data.filter(data => data.name === dogName);
+    const combinedResults = dataDB ? [...dataApi, dataDB] : dataApi;
 
-    const responseDB = await Dog.findAll();
 
-    const foundDogsDB = responseDB.filter(dog => dog.dataValues.name === dogName);
-
-    const combinedResults = [...foundDogs, ...foundDogsDB];
-
-    if (combinedResults.length > 0) {
-      return res.status(200).json(combinedResults);
+    if(combinedResults.length > 0){
+      return res.status(200).json(combinedResults)
     } else {
-      return res.status(400).send('Not Found');
+      return res.status(404).json({ error: 'Not found' });
     }
-
   } catch (error) {
     return res.status(500).send(error.message);
   }
-}
+};
 
 module.exports = getDogByName;

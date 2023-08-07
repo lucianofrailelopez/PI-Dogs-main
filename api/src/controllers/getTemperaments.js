@@ -5,6 +5,13 @@ const { Temperament } = require("../db");
 
 const getTemperaments = async (req, res) => {
   try {
+
+    const temperamentDB = await Temperament.findAll();
+
+    if (temperamentDB.length > 0) {
+      return res.status(200).json(temperamentDB);
+    }
+
     const response = await axios.get(`${URL}?api_key=${API_KEY}`);
     const data = response.data;
 

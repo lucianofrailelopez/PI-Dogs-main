@@ -1,31 +1,29 @@
-require('dotenv').config();
-const { URL } = process.env;
+require("dotenv").config();
+const { URL, API_KEY } = process.env;
 const axios = require("axios");
+const { Dog } = require('../db')
 
 async function getDogByIdRace(req, res) {
   try {
     const { idRace } = req.params;
-    const response = await axios(`${URL}/search?q=${idRace}`);
-    const data = response.data;
 
-    if (data) {
-      return res.status(200).json(data);
+    const response = await axios(`${URL}?api_key=${API_KEY}`);
+    const data = response.data;
+    const dogFromApi = data.filter((dog) => dog.id === Number(idRace));
+
+    const responseDB = await Dog.findAll();
+    const dogFromDB = responseDB.filter((dog) => dog.id === idRace);
+
+    console.log(dogFromDB);
+
+    const combinedResults = [...dogFromApi, ...dogFromDB];
+
+    console.log(combinedResults);
+
+    if (combinedResults.length > 0) {
+      return res.status(200).json(combinedResults);
     } else {
-      const responseDB = await Dog.findAll();
-      const dogFromDB = responseDB.find((dog) => dog.breed_group === idRace);
-      
-      if (dogFromDB) {
-        return res.status(200).json({
-            id: dogFromAPI.id,
-            image: dogFromAPI.image.url,
-            name: dogFromAPI.name,
-            weight: dogFromAPI.weight,
-            height: dogFromAPI.height,
-            life_span: dogFromAPI.life_span,
-        });
-      } else {
-        return res.status(404).json({ error: "Raza no encontrada" });
-      }
+      return res.status(400).send("Not Found");
     }
   } catch (error) {
     return res.status(500).send(error.message);
