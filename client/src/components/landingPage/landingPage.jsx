@@ -5,7 +5,7 @@ import styles from "./landingPage.module.css";
 const LandingPage = () => {
   return (
     <div className={styles.containenLandingPage}>
-      <h1 className={styles.title}>Welcome!</h1>
+      <h1 className={styles.title}>Welcome to the Individual Proyect!</h1>
       <NavLink to="/HomePage">
         <button className={styles.buttonAccess}>Home</button>
       </NavLink>

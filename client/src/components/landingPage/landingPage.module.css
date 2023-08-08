@@ -8,6 +8,9 @@
     overflow: visible;
     background-image: url('../../Images/michael-oxendine-t7wwffh6x8E-unsplash.jpg');
     background-size: 100% 100%;
+    cursor:
+        url(../../Images/Doge_Cursor1.png) 4 12,
+        auto;
 }
 
 .title {
@@ -15,11 +18,13 @@
     font-size: 50px;
     opacity: 0;
     animation: fadeInUp 3s forwards;
-    color: rgba(245, 245, 245);
+    color: rgb(255, 255, 255);
 }
 
 .buttonAccess {
-    cursor: pointer;
+    cursor:
+        url(../../Images/Doge_Pointer2.png) 2 2,
+        pointer;
     font-size: 25px;
     border: none;
     text-decoration: none;
