@@ -8,9 +8,6 @@
     overflow: visible;
     background-image: url('../../Images/michael-oxendine-t7wwffh6x8E-unsplash.jpg');
     background-size: 100% 100%;
-    cursor:
-        url(../../Images/Doge_Cursor1.png) 4 12,
-        auto;
 }
 
 .title {
@@ -22,9 +19,7 @@
 }
 
 .buttonAccess {
-    cursor:
-        url(../../Images/Doge_Pointer2.png) 2 2,
-        pointer;
+    cursor: pointer;
     font-size: 25px;
     border: none;
     text-decoration: none;

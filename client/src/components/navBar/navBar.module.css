@@ -1,0 +1,56 @@
+.containerNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 140px;
+    background-color: antiquewhite;
+}
+
+.containerTitle {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 50%;
+    height: 140px;
+}
+
+.title {
+    margin-left: 25px;
+    border-bottom: 1px solid black;
+    user-select: none;
+    color: #000;
+    font-family: Vegur, 'PT Sans', Verdana, sans-serif;
+    font-weight: 400;
+}
+
+.image {
+    margin-left: 25px;
+    width: 40px;
+    height: 40px;
+}
+
+.containerSearch {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 50%;
+    height: 140px; 
+}
+
+.searchBar {
+    margin-right: 25px;
+    width: 45%;
+    height: 30px;
+}
+
+.exitPage {
+    margin-right: 25px;
+    cursor: pointer;
+    border: none;
+    width: 30px;
+    height: 25px;
+    background-image: url(../../Images/log-out.png);
+    background-size: 100% 100%;
+    background-color: antiquewhite;
+}
