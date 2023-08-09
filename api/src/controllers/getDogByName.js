@@ -2,11 +2,12 @@ require("dotenv").config();
 const { URL, API_KEY } = process.env;
 const axios = require("axios");
 const { Dog } = require("../db");
+const { Op } = require("sequelize");
 
 const getDogByName = async (req, res) => {
   try {
     const dogName = req.query.name;
-    const dataDB = await Dog.findOne({ where: { title: { [Op.iLike]: `%${dogName}%`} } });
+    const dataDB = await Dog.findOne({ where: { name: { [Op.iLike]: `%${dogName}%`} } });
 
     const response = await axios.get(`${URL}/search?q=${dogName}`);
     const dataApi = response.data
