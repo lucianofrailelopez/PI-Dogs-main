@@ -37,10 +37,24 @@ const DogCards = () => {
 
   return (
     <div className={styles.containerCards}>
+      <div className={styles.containerSelect}>
+        <select>
+          <option>Filter</option>
+          <option value="Temperament">Temperament</option>
+          <option value="API">External API Dog</option>
+          <option value="Genderless">DataBase Dogs</option>
+        </select>
+        <select>
+          <option>Order</option>
+          <option value="A">Upward</option>
+          <option value="D">Falling</option>
+        </select>
+      </div>
       <div className={styles.cards}>
         {current?.map((data) => {
           return (
             <DogCard
+              id={data.id}
               name={data.name}
               image={data.image.url}
               temperament={data.temperament}

@@ -1,7 +1,8 @@
-import { GETDOGS } from "../actions/types";
+import { GETDOGS, GETDOGBYID } from "../actions/types";
 
 const initialState = {
   charactersDogs: [],
+  characterDog: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         charactersDogs: action.payload,
       };
+    case GETDOGBYID:
+      return {
+        ...state,
+        characterDog: action.payload,
+      }
     default:
       return { ...state };
   }

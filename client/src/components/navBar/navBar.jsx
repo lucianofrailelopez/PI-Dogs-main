@@ -1,5 +1,6 @@
 // eslint-disable-next-line jsx-a11y/img-redundant-alt
 import React from "react";
+import { NavLink } from "react-router-dom";
 import styles from "./navBar.module.css";
 import img from "../../Images/06.png";
 
@@ -16,7 +17,9 @@ const NavBar = () => {
           className={styles.searchBar}
           placeholder="Find dog breeds"
         />
-        <button className={styles.exitPage}></button>
+        <NavLink to='/'>
+          <button className={styles.exitPage}></button>
+        </NavLink>
       </div>
     </div>
   );
