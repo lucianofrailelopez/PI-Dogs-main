@@ -1,32 +1,28 @@
 /* eslint-disable no-sequences */
 import React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import styles from "./dogsCards.module.css";
 import DogCard from "../dogCard/dogCard";
+import { useDispatch, useSelector } from "react-redux";
+import {getDogs} from '../../redux/actions/index';
 
 const itemsPerPage = 8;
 
 const DogCards = () => {
-  const [itemList, setItemList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const dispatch = useDispatch();
+  const allCharacters = useSelector((state) => state.charactersDogs)
+
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/dogs")
-      .then((response) => {
-        setItemList(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+    dispatch(getDogs());
+  }, [dispatch]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = itemList.slice(indexOfFirstItem, indexOfLastItem);
+  const current = allCharacters.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(itemList.length / itemsPerPage);
+  const totalPages = Math.ceil(allCharacters.length / itemsPerPage);
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -42,7 +38,7 @@ const DogCards = () => {
   return (
     <div className={styles.containerCards}>
       <div className={styles.cards}>
-        {currentItems?.map((data) => {
+        {current?.map((data) => {
           return (
             <DogCard
               name={data.name}
@@ -56,7 +52,7 @@ const DogCards = () => {
       <div className={styles.containerPaginated}>
         <button className={styles.buttonPrev} onClick={prevPage} disabled={currentPage === 1}></button>
         <span>
-            {currentPage} de {totalPages}
+            {currentPage} of {totalPages}
         </span>
         <button className={styles.buttonNext} onClick={nextPage} disabled={currentPage === totalPages}></button>
       </div>
