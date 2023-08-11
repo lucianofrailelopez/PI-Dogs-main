@@ -1,5 +1,12 @@
 import axios from "axios";
-import { GETDOGS, GETDOGBYID, GETDOGSBYNAME, ORDER } from "./types";
+import {
+  GETDOGS,
+  GETDOGBYID,
+  GETDOGSBYNAME,
+  GETTEMPERAMENT,
+  FILTEREDTEMPERAMENT,
+  ORDER,
+} from "./types";
 
 export const getDogs = () => async (dispatch) => {
   try {
@@ -42,6 +49,43 @@ export const getDogsByName = (dataName) => async (dispatch) => {
       return dispatch({
         type: GETDOGSBYNAME,
         payload: data,
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getTemperament = () => async (dispatch) => {
+  try {
+    const response = await axios.get(`http://localhost:3001/temperaments`);
+    const data = response.data;
+    return dispatch({
+      type: GETTEMPERAMENT,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const filterTemperaments = (selectedTemperament) => async (dispatch, getState) => {
+  try {
+    const allCharacters = getState().charactersDogs;
+  
+    if (selectedTemperament === "allcharacters") {
+      dispatch({
+        type: FILTEREDTEMPERAMENT,
+        payload: allCharacters,
+      });
+    } else {
+      const filteredByTemperament = allCharacters.filter((dog) =>
+      dog.temperament && dog.temperament.split(',').map(item => item.trim()).includes(selectedTemperament)
+      );
+      
+      dispatch({
+        type: FILTEREDTEMPERAMENT,
+        payload: filteredByTemperament,
       });
     }
   } catch (error) {

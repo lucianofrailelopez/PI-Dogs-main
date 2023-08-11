@@ -1,9 +1,10 @@
-import { GETDOGS, GETDOGBYID, GETDOGSBYNAME, ORDER } from "../actions/types";
+import { GETDOGS, GETDOGBYID, GETDOGSBYNAME, GETTEMPERAMENT, FILTEREDTEMPERAMENT, ORDER } from "../actions/types";
 
 const initialState = {
   charactersDogs: [],
   characterDog: [],
   filteredDogs: [],
+  filteredTemperament: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -31,6 +32,16 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredDogs: searchResults,
+      };
+    case GETTEMPERAMENT:
+      return {
+        ...state,
+        filteredTemperament: action.payload,
+      };
+    case FILTEREDTEMPERAMENT:
+      return {
+        ...state,
+        filteredDogs: action.payload,
       };
     case ORDER:
       const allCharactersFavCopy = [...state.charactersDogs];

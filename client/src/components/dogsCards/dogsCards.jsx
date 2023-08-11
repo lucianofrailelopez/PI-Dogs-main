@@ -1,10 +1,12 @@
 /* eslint-disable no-sequences */
 import React from "react";
 import { useState, useEffect } from "react";
-import styles from "./dogsCards.module.css";
-import DogCard from "../dogCard/dogCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getDogs, orderDogs } from "../../redux/actions/index";
+import styles from "./dogsCards.module.css";
+import DogCard from "../dogCard/dogCard";
+import FilterTemperament from "../filtertemperament/filterTemperament";
+
 
 const itemsPerPage = 8;
 
@@ -45,9 +47,9 @@ const DogCards = () => {
   return (
     <div className={styles.containerCards}>
       <div className={styles.containerSelect}>
+        <FilterTemperament />
         <select>
-          <option>Filter</option>
-          <option value="Temperament">Temperament</option>
+          <option>Filter Date</option>
           <option value="API">External API Dog</option>
           <option value="Genderless">DataBase Dogs</option>
         </select>
