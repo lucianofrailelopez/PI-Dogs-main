@@ -1,8 +1,9 @@
-import { GETDOGS, GETDOGBYID } from "../actions/types";
+import { GETDOGS, GETDOGBYID, GETDOGSBYNAME, ORDER } from "../actions/types";
 
 const initialState = {
   charactersDogs: [],
-  characterDog: []
+  characterDog: [],
+  filteredDogs: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -16,7 +17,33 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         characterDog: action.payload,
-      }
+      };
+    case GETDOGSBYNAME:
+      const searchTerm = action.payload;
+      const searchResults = state.charactersDogs.filter((dog) =>
+        searchTerm.some(
+          (searchItem) =>
+            dog.name &&
+            searchItem.name &&
+            dog.name.toLowerCase().includes(searchItem.name.toLowerCase())
+        )
+      );
+      return {
+        ...state,
+        filteredDogs: searchResults,
+      };
+    case ORDER:
+      const allCharactersFavCopy = [...state.charactersDogs];
+
+      const sortedCharacters =
+        action.payload === "A"
+          ? allCharactersFavCopy.sort((a, b) => a.id - b.id)
+          : allCharactersFavCopy.sort((a, b) => b.id - a.id);
+      return {
+        ...state,
+        charactersDogs: sortedCharacters,
+        filteredDogs: sortedCharacters,
+      };
     default:
       return { ...state };
   }

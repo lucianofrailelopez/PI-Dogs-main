@@ -1,10 +1,23 @@
 // eslint-disable-next-line jsx-a11y/img-redundant-alt
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styles from "./navBar.module.css";
 import img from "../../Images/06.png";
+import { getDogsByName } from "../../redux/actions/index";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+
+  const handleInputChange = (event) => {
+    const searchTerm = event.target.value;
+    if (searchTerm === "") {
+      dispatch(getDogsByName([]));
+    } else {
+      dispatch(getDogsByName(searchTerm));
+    }
+  };
+
   return (
     <div className={styles.containerNav}>
       <div className={styles.containerTitle}>
@@ -15,9 +28,10 @@ const NavBar = () => {
         <input
           type="text"
           className={styles.searchBar}
+          onChange={handleInputChange}
           placeholder="Find dog breeds"
         />
-        <NavLink to='/'>
+        <NavLink to="/">
           <button className={styles.exitPage}></button>
         </NavLink>
       </div>

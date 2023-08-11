@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./dogsCards.module.css";
 import DogCard from "../dogCard/dogCard";
 import { useDispatch, useSelector } from "react-redux";
-import {getDogs} from '../../redux/actions/index';
+import { getDogs, orderDogs } from "../../redux/actions/index";
 
 const itemsPerPage = 8;
 
@@ -12,17 +12,20 @@ const DogCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const dispatch = useDispatch();
-  const allCharacters = useSelector((state) => state.charactersDogs)
+  const allCharacters = useSelector((state) => state.charactersDogs);
+  const filteredDogs = useSelector((state) => state.filteredDogs);
 
   useEffect(() => {
     dispatch(getDogs());
   }, [dispatch]);
 
+  const dogsToDisplay = filteredDogs.length > 0 ? filteredDogs : allCharacters;
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const current = allCharacters.slice(indexOfFirstItem, indexOfLastItem);
+  const current = dogsToDisplay.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(allCharacters.length / itemsPerPage);
+  const totalPages = Math.ceil(dogsToDisplay.length / itemsPerPage);
 
   const nextPage = () => {
     if (currentPage < totalPages) {
@@ -35,6 +38,10 @@ const DogCards = () => {
     }
   };
 
+  const handleOrder = (e) => {
+    dispatch(orderDogs(e.target.value));
+  };
+
   return (
     <div className={styles.containerCards}>
       <div className={styles.containerSelect}>
@@ -44,8 +51,7 @@ const DogCards = () => {
           <option value="API">External API Dog</option>
           <option value="Genderless">DataBase Dogs</option>
         </select>
-        <select>
-          <option>Order</option>
+        <select onChange={handleOrder}>
           <option value="A">Upward</option>
           <option value="D">Falling</option>
         </select>
@@ -64,11 +70,19 @@ const DogCards = () => {
         })}
       </div>
       <div className={styles.containerPaginated}>
-        <button className={styles.buttonPrev} onClick={prevPage} disabled={currentPage === 1}></button>
+        <button
+          className={styles.buttonPrev}
+          onClick={prevPage}
+          disabled={currentPage === 1}
+        ></button>
         <span>
-            {currentPage} of {totalPages}
+          {currentPage} of {totalPages}
         </span>
-        <button className={styles.buttonNext} onClick={nextPage} disabled={currentPage === totalPages}></button>
+        <button
+          className={styles.buttonNext}
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+        ></button>
       </div>
     </div>
   );
