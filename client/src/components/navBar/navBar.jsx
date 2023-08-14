@@ -31,6 +31,9 @@ const NavBar = () => {
           onChange={handleInputChange}
           placeholder="Find dog breeds"
         />
+        <NavLink to={'/FormPage'}>
+          <button className={styles.createDog}>Create Dog</button>
+        </NavLink>
         <NavLink to="/">
           <button className={styles.exitPage}></button>
         </NavLink>

@@ -14,8 +14,6 @@ const FilterTemperament = () => {
   const handleFilterChange = (e) => {
     const selectedTemperament = e.target.value;
     dispatch(filterTemperaments(selectedTemperament));
-    // Aquí deberías realizar un dispatch de la acción para filtrar por temperamento
-    // Puedes utilizar la misma lógica que en la acción para filtrar por nombre o crear una nueva acción similar para el filtrado por temperamento
   };
 
   return (

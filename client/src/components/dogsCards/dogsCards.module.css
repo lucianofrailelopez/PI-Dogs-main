@@ -17,6 +17,7 @@
 }
 
 .containerSelect select {
+    cursor: pointer;
     width: 125px;
 }
 
