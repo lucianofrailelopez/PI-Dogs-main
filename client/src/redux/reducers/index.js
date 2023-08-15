@@ -1,4 +1,4 @@
-import { GETDOGS, GETDOGBYID, GETDOGSBYNAME, GETTEMPERAMENT, FILTEREDTEMPERAMENT, ORDER } from "../actions/types";
+import { GETDOGS, GETDOGBYID, GETDOGSBYNAME, GETTEMPERAMENT, FILTEREDTEMPERAMENT, ORDER, CREATEDOG } from "../actions/types";
 
 const initialState = {
   charactersDogs: [],
@@ -55,6 +55,10 @@ const rootReducer = (state = initialState, action) => {
         charactersDogs: sortedCharacters,
         filteredDogs: sortedCharacters,
       };
+    case CREATEDOG: 
+    return{
+      ...state,
+    };
     default:
       return { ...state };
   }

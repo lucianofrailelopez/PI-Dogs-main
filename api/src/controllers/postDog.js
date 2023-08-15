@@ -3,6 +3,7 @@ const { Dog, Temperament } = require("../db");
 const postDog = async (req, res) => {
   try {
     const { image, name, weight, height, life_span, temperaments } = req.body;
+    console.log(image, name, weight, height, life_span, temperaments );
 
     if (!image || !name || !weight || !height || !life_span || !temperaments) {
       return res.status(401).send("Not Found");

@@ -64,7 +64,7 @@ const DogCards = () => {
             <DogCard
               id={data.id}
               name={data.name}
-              image={data.image.url}
+              image={data.image}
               temperament={data.temperament}
               weight={data.weight}
             />

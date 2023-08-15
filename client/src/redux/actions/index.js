@@ -8,16 +8,18 @@ import {
   ORDER,
 } from "./types";
 
+const URL = 'http://localhost:3001'
+
 export const getDogs = () => async (dispatch) => {
   try {
-    const response = await axios.get("http://localhost:3001/dogs");
+    const response = await axios.get(`${URL}/dogs`);
     const data = response.data;
     return dispatch({
       type: GETDOGS,
       payload: data,
     });
   } catch (error) {
-    console.log(error.message);
+    return console.log(error.message);
   }
 };
 
@@ -30,14 +32,14 @@ export const getDogById = (id) => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    console.log(error.message);
+    return console.log(error.message);
   }
 };
 
 export const getDogsByName = (dataName) => async (dispatch) => {
   try {
     const response = await axios.get(
-      `http://localhost:3001/dogsname?name=${dataName}`
+      `${URL}/dogsname?name=${dataName}`
     );
     const data = response.data;
     if (dataName === "") {
@@ -52,20 +54,20 @@ export const getDogsByName = (dataName) => async (dispatch) => {
       });
     }
   } catch (error) {
-    console.log(error.message);
+    return console.log(error.message);
   }
 };
 
 export const getTemperament = () => async (dispatch) => {
   try {
-    const response = await axios.get(`http://localhost:3001/temperaments`);
+    const response = await axios.get(`${URL}/temperaments`);
     const data = response.data;
     return dispatch({
       type: GETTEMPERAMENT,
       payload: data,
     });
   } catch (error) {
-    console.log(error.message);
+    return console.log(error.message);
   }
 };
 
@@ -89,10 +91,20 @@ export const filterTemperaments = (selectedTemperament) => async (dispatch, getS
       });
     }
   } catch (error) {
-    console.log(error.message);
+    return console.log(error.message);
   }
 };
 
 export const orderDogs = (order) => {
   return { type: ORDER, payload: order };
 };
+
+
+export const createDog = (data) => async (dispatch) => {
+  try {
+    const response = await axios.post(`${URL}/dogs`, data);
+    return response;
+  } catch (error) {
+    return console.log(error.message);
+  }
+}
