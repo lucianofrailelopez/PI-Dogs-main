@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getTemperament, createDog } from "../../redux/actions";
+import validations from "./validate";
 import styles from "./Form.module.css";
 
 const Form = () => {
@@ -14,6 +15,8 @@ const Form = () => {
     temperaments: "",
   });
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [errors, setErrors] = useState({});
+
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -52,21 +55,28 @@ const Form = () => {
       ...dataDog,
       [event.target.name]: event.target.value,
     }));
+    setErrors(
+      validations({ ...dataDog, [event.target.name]: event.target.value })
+    );
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(createDog(dataDog));
-    alert("Create Dog");
-    setDataDog({
-      image: "",
-      name: "",
-      weight: "",
-      height: "",
-      life_span: "",
-      temperaments: "",
-    });
-    history.push("/HomePage");
+    if (errors.length > 0) {
+      alert("arreglar create");
+    } else {
+      dispatch(createDog(dataDog));
+      alert("Create Dog");
+      setDataDog({
+        image: "",
+        name: "",
+        weight: "",
+        height: "",
+        life_span: "",
+        temperaments: "",
+      });
+      history.push("/HomePage");
+    }
   };
 
   return (
@@ -85,6 +95,7 @@ const Form = () => {
             onChange={handleChange}
             placeholder="Insert name..."
           />
+          {errors.name ? <p className={styles.msgError}>{errors.name}</p> : null}
         </div>
         <div className={styles.containerRight}>
           <label htmlFor="height">height</label>
@@ -95,6 +106,7 @@ const Form = () => {
             onChange={handleChange}
             placeholder="Insert min and max height"
           />
+          {errors.height && <p className={styles.msgError}>{errors.height}</p>}
         </div>
         <div className={styles.containerLeft}>
           <label htmlFor="weight">weight</label>
@@ -105,6 +117,7 @@ const Form = () => {
             onChange={handleChange}
             placeholder="Insert min and max weight"
           />
+          {errors.weight && <p className={styles.msgError}>{errors.weight}</p>}
         </div>
         <div className={styles.containerRight}>
           <label htmlFor="life_span">yearsOfLife</label>
@@ -115,6 +128,7 @@ const Form = () => {
             onChange={handleChange}
             placeholder="Insert years of life"
           />
+          {errors.life_span && <p className={styles.msgError}>{errors.life_span}</p>}
         </div>
         <div className={styles.containerLeft}>
           <label htmlFor="image">Image</label>
@@ -125,6 +139,7 @@ const Form = () => {
             onChange={handleChange}
             placeholder="Insert image url"
           />
+          {errors.image && <p className={styles.msgError}>{errors.image}</p>}
         </div>
         <div className={styles.containerRight}>
           <label>Temperment</label>
@@ -133,6 +148,7 @@ const Form = () => {
               return <option value={temp.name}>{temp.name}</option>;
             })}
           </select>
+          {errors.temperament && <p className={styles.msgError}>{errors.temperament}</p>}
         </div>
         <div className={styles.containerOptionValue}>
           {selectedOptions.map((value, index) => (

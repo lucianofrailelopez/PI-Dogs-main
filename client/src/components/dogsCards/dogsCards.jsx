@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-sequences */
 import React from "react";
 import { useState, useEffect } from "react";
@@ -19,13 +20,13 @@ const DogCards = () => {
 
   useEffect(() => {
     dispatch(getDogs());
-  }, [dispatch]);
+  }, []);
 
   const dogsToDisplay = filteredDogs.length > 0 ? filteredDogs : allCharacters;
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const current = dogsToDisplay.slice(indexOfFirstItem, indexOfLastItem);
+  const dogCardList = dogsToDisplay.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(dogsToDisplay.length / itemsPerPage);
 
@@ -59,7 +60,7 @@ const DogCards = () => {
         </select>
       </div>
       <div className={styles.cards}>
-        {current?.map((data) => {
+        {dogCardList?.map((data) => {
           return (
             <DogCard
               id={data.id}

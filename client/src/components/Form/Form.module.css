@@ -75,3 +75,9 @@ form div select {
 form button {
     width: 25%;
 }
+
+.msgError {
+    margin: 0px;
+    font-size: 12px;
+    color: red;
+}

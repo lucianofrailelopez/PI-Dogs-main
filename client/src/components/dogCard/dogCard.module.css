@@ -17,7 +17,6 @@
 
 .containerCard:hover {
     box-shadow: 0px 4px 6px rgba(76, 108, 237, 0.8);
-    padding: 8px;
 }
 
 .image {
