@@ -1,4 +1,4 @@
-import { GETDOGS, GETDOGBYID, GETDOGSBYNAME, GETTEMPERAMENT, FILTEREDTEMPERAMENT, ORDER, CREATEDOG } from "../actions/types";
+import { GETDOGS, GETDOGBYID, GETDOGSBYNAME, GETTEMPERAMENT, FILTEREDTEMPERAMENT, ORDER, CREATEDOG, FILTER_BY_ID_TYPE } from "../actions/types";
 
 const initialState = {
   charactersDogs: [],
@@ -55,6 +55,22 @@ const rootReducer = (state = initialState, action) => {
         charactersDogs: sortedCharacters,
         filteredDogs: sortedCharacters,
       };
+    case FILTER_BY_ID_TYPE:
+      const idType = action.payload;
+      const filteredByIdType = state.charactersDogs.filter((dog) => {
+        if (idType === "numeric") {
+          return typeof dog.id === "number";
+        } else if (idType === "uuid") {
+          return typeof dog.id !== "number";
+        }
+        return true;
+      });
+    
+      return {
+        ...state,
+        filteredDogs: filteredByIdType,
+      };
+    
     case CREATEDOG: 
     return{
       ...state,

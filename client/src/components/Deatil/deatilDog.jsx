@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDogById } from "../../redux/actions";
 import styles from "./deatilDog.module.css";
@@ -10,6 +10,7 @@ import styles from "./deatilDog.module.css";
 const DeatilDogs = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
   const characterDog = useSelector((state) => state.characterDog);
 
   useEffect(() => {
@@ -85,6 +86,9 @@ const DeatilDogs = () => {
             <h2>Name:</h2>
             {characterDog[0] ? <h3>{characterDog[0].name}</h3> : null}
           </div>
+          <button className={styles.button} onClick={() => history.push("/HomePage")}>
+            Back
+          </button>
         </div>
       </div>
     </div>

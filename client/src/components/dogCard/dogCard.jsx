@@ -7,19 +7,19 @@ const DogCard = ({ id, name, image, temperament, weight }) => {
   return (
     <NavLink to={`/deatilDogs/${id}`} className={styles.linkCard}>
       <div className={styles.containerCard}>
-        <h2>Name: {name}</h2>
+        <h2 className={styles.name}>Name: {name}</h2>
         {image.url ? (
           <img src={image.url} className={styles.image} alt="Dog Image"></img>
         ) : (
           <img src={image} className={styles.image} alt="Dog Image"></img>
         )}
-        <h2>Temperament: {temperament}</h2>
+        <h2 className={styles.temperament}>Temperament: {temperament}</h2>
         {weight.metric ? (
-          <h2>
+          <h2 className={styles.weight}>
             Weight: {weight.metric} kg
           </h2>
         ) : (
-          <h2>Weight: {weight}</h2>
+          <h2 className={styles.weight}>Weight: {weight}</h2>
         )}
       </div>
     </NavLink>

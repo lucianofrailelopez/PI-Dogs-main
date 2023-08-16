@@ -3,16 +3,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDogs, orderDogs } from "../../redux/actions/index";
+import { getDogs, orderDogs, filterByIdType } from "../../redux/actions/index";
 import styles from "./dogsCards.module.css";
 import DogCard from "../dogCard/dogCard";
 import FilterTemperament from "../filtertemperament/filterTemperament";
 
-
-const itemsPerPage = 8;
-
 const DogCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
   const dispatch = useDispatch();
   const allCharacters = useSelector((state) => state.charactersDogs);
@@ -49,10 +47,14 @@ const DogCards = () => {
     <div className={styles.containerCards}>
       <div className={styles.containerSelect}>
         <FilterTemperament />
-        <select>
-          <option>Filter Date</option>
-          <option value="API">External API Dog</option>
-          <option value="Genderless">DataBase Dogs</option>
+        <select
+          onChange={(e) => {
+            dispatch(filterByIdType(e.target.value));
+          }}
+        >
+          <option value="all">Show All</option>
+          <option value="numeric">Numeric IDs</option>
+          <option value="uuid">UUID IDs</option>
         </select>
         <select onChange={handleOrder}>
           <option value="A">Upward</option>

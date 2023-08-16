@@ -6,6 +6,7 @@ import {
   GETTEMPERAMENT,
   FILTEREDTEMPERAMENT,
   ORDER,
+  FILTER_BY_ID_TYPE,
 } from "./types";
 
 const URL = 'http://localhost:3001'
@@ -98,6 +99,10 @@ export const filterTemperaments = (selectedTemperament) => async (dispatch, getS
 export const orderDogs = (order) => {
   return { type: ORDER, payload: order };
 };
+
+export const filterByIdType = (idType) => {
+  return { type: FILTER_BY_ID_TYPE, payload: idType };
+}
 
 
 export const createDog = (data) => async (dispatch) => {
